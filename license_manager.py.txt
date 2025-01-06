@@ -10,7 +10,6 @@ LICENSES = {
         "url": "https://raw.githubusercontent.com/magenta/magenta/main/LICENSE",
         "filename": "LICENSE_Magenta.txt"
     }
-    # Add other licenses as needed
 }
 
 def update_licenses():
