@@ -1,2 +1,18 @@
+from PIL import Image, ImageDraw, ImageFont
+
 def generate_art(prompt):
-    return f"Creating artistic renderings of: {prompt}"
+    """Generate a placeholder artistic image."""
+    width, height = 800, 600
+    filename = f"generated_art_{prompt.replace(' ', '_')}.png"
+
+    # Create a blank image
+    image = Image.new("RGB", (width, height), color="white")
+    draw = ImageDraw.Draw(image)
+
+    # Add the prompt text
+    font = ImageFont.load_default()
+    text_position = (50, height // 2)
+    draw.text(text_position, prompt, fill="black", font=font)
+
+    image.save(f"outputs/{filename}")
+    return filename

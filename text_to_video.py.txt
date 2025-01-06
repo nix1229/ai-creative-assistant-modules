@@ -1,2 +1,22 @@
+import cv2
+import numpy as np
+
 def generate_video(prompt):
-    return f"Generating a video for: {prompt}"
+    """Generate a placeholder video based on the given prompt."""
+    # Video settings
+    height, width = 480, 640
+    fps = 24
+    duration = 5  # seconds
+    filename = f"generated_video_{prompt.replace(' ', '_')}.mp4"
+
+    # Create a blank video with OpenCV
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+    out = cv2.VideoWriter(f"outputs/{filename}", fourcc, fps, (width, height))
+
+    # Create frames
+    for _ in range(fps * duration):
+        frame = np.random.randint(0, 255, (height, width, 3), dtype=np.uint8)  # Random color frames
+        out.write(frame)
+
+    out.release()
+    return filename

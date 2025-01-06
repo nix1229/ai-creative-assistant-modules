@@ -1,0 +1,45 @@
+import os
+import requests
+
+LICENSES = {
+    "Stable Diffusion": {
+        "url": "https://raw.githubusercontent.com/CompVis/stable-diffusion/main/LICENSE",
+        "filename": "LICENSE_Stable_Diffusion.txt"
+    },
+    "Google Magenta": {
+        "url": "https://raw.githubusercontent.com/magenta/magenta/main/LICENSE",
+        "filename": "LICENSE_Magenta.txt"
+    }
+    # Add other licenses as needed
+}
+
+def update_licenses():
+    """Download and store license files."""
+    license_folder = "licenses"
+    if not os.path.exists(license_folder):
+        os.makedirs(license_folder)
+
+    for model, info in LICENSES.items():
+        try:
+            response = requests.get(info["url"])
+            if response.status_code == 200:
+                filepath = os.path.join(license_folder, info["filename"])
+                with open(filepath, "w") as file:
+                    file.write(response.text)
+                print(f"Updated license for {model}: {filepath}")
+            else:
+                print(f"Failed to download license for {model}. Status code: {response.status_code}")
+        except Exception as e:
+            print(f"Error updating license for {model}: {e}")
+
+def generate_readme():
+    """Generate a README.md file with license attributions."""
+    readme_content = "# AI Creative Assistant\n\nThis assistant integrates the following models:\n"
+    for model, info in LICENSES.items():
+        readme_content += f"- **{model}**: License stored in `{info['filename']}`.\n"
+    readme_content += "\nFor more details, refer to the `licenses` folder in this project."
+
+    with open("README.md", "w") as file:
+        file.write(readme_content)
+    print("README.md has been generated.")
+    return "README.md generated successfully."
