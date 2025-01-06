@@ -1,0 +1,2 @@
+def generate_art(prompt):
+    return f"Creating artistic renderings of: {prompt}"

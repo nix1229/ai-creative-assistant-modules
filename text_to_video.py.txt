@@ -1,0 +1,2 @@
+def generate_video(prompt):
+    return f"Generating a video for: {prompt}"
